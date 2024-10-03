@@ -1,0 +1,14 @@
+
+DEVICE = atmega328p
+#DEVICE = avr5
+
+AVR-G++	= avr-g++ -Wall -Os -mmcu=$(DEVICE)
+
+default: compile
+
+compile:
+	$(AVR-G++) -c blink.cpp -o blink.o
+	$(AVR-G++) -c main.cpp -o main.o
+	
+link:
+	$(AVR-G++) -o main.elf blink.o main.o
