@@ -1,5 +1,5 @@
 /*
- * main.c
+ * avr.cpp
  *
  *  Created on: 18 Oct 2020
  *      Author: jole
@@ -10,18 +10,21 @@
 #define F_CPU	16000000UL
 
 #include <stdio.h>
-#include <avr/io.h>
-#include <avr/eeprom.h>
-#include <avr/interrupt.h>
-#include <util/delay.h>
 #include <stdlib.h>
 #include <string.h>
 
+#include <avr/io.h>
+//#include <avr/eeprom.h>
+//#include <avr/interrupt.h>
+
+#include <util/delay.h>
+
 //#include "yfs401/yfs401.h"
-#include "ssd1306/ssd1306.h"
+//#include "ssd1306/ssd1306.h"
 
 
 
+/*
 volatile	uint64_t	reset			= 0;
 volatile	float		totalTap		= 0;
 volatile	float		lastTap			= 0;
@@ -33,9 +36,9 @@ volatile	bool		interrupted		= true;
 			bool		sleepMode		= false;
 volatile	bool		writeToEeprom	= false;
 volatile	uint16_t	counter			= 0;
+*/
 
-
-
+/*
 ISR(INT1_vect)
 {
 	//pulses++;
@@ -71,15 +74,16 @@ ISR(INT0_vect)
 
 	reset++;
 }
+*/
 
 
 
 int main(void)
 {
-	uint8_t		lightUp				= 1;
-	uint8_t		displayTwiAddress	= 0x3c;
-	uint8_t		width				= 128;
-	uint8_t		height				= 64;
+	//uint8_t		lightUp				= 1;
+	//uint8_t		displayTwiAddress	= 0x3c;
+	//uint8_t		width				= 128;
+	//uint8_t		height				= 64;
 
 	//yfs401		flowMeter;
 
@@ -89,12 +93,13 @@ int main(void)
 	DDRB |= 0b00100000;
 
 	// Blink LED to visualise start of program
-	oled.twi.blinkLED(0b00100000, 13, 0);
-	_delay_us(500000);
+	//oled.twi.blinkLED(0b00100000, 13, 0);
+	//_delay_us(500000);
 
 
 	// Here goes the main code...
 
+	/*
 	// initialise the display, and check the feedback...
 	switch(oled.initDisplay(displayTwiAddress, width, height)){
 
@@ -130,22 +135,23 @@ int main(void)
 									break;
 
 	}
+	*/
 
 	// read from eeprom
-	totalTap = (eeprom_read_byte((uint8_t*)0) << 8 | eeprom_read_byte((uint8_t*)2)) + ((eeprom_read_byte((uint8_t*)4))/100.0);
+	//totalTap = (eeprom_read_byte((uint8_t*)0) << 8 | eeprom_read_byte((uint8_t*)2)) + ((eeprom_read_byte((uint8_t*)4))/100.0);
 
 
 	DDRC	= 0xff;
 	DDRD	= 0xe0;
 
 	// enable global interrupts - see p.20
-	SREG |= 0b10000000;
+	//SREG |= 0b10000000;
 
 	// enable interrupt INT0 and INT1 on rising edge - see p.80
-	EICRA	|=	0b00001010;
+	//EICRA	|=	0b00001010;
 
 	// enable external interrupt INT0 and INT1 - see p.81
-	EIMSK	|=	0b00000011;
+	//EIMSK	|=	0b00000011;
 
 	// enable PCINT0 interrupt see p.83
 	//PCMSK0	|= (1 << PCINT0);
@@ -160,14 +166,14 @@ int main(void)
 	/* Move interrupts to Boot Flash section */
 	//MCUCR |= (1<<IVSEL);
 
-	sei();
+	//sei();
 
-	if(lightUp)
-		PORTB = 0b00100000;
+	//if(lightUp)
+	//	PORTB = 0b00100000;
 
 	while(1){
-		interrupted	= false;
-		sleepMode	= false;
+		//interrupted	= false;
+		//sleepMode	= false;
 
 		/*
 		dtostrf(pulses, 11, 1, (char*)liter);
@@ -175,6 +181,8 @@ int main(void)
 		oled.print(0, 0, text, strlen((char*)text));
 		*/
 
+
+		/*
 		// Update display
 		dtostrf((totalTap), 9, 2, (char*)liter);
 		sprintf((char*)text, "Total tapped: %s", liter);
@@ -232,6 +240,7 @@ int main(void)
 			eeprom_write_byte((uint8_t*)0, totalTapIntegerPartHighByte);
 			eeprom_write_byte((uint8_t*)2, totalTapIntegerPartLowByte);
 			eeprom_write_byte((uint8_t*)4, totalTapDecimalPart);
+		*/
 
 			/*
 			oled.clearDisplay();
@@ -322,17 +331,13 @@ int main(void)
 			//eepromWrite(0x06, decimalPart3);
 			//eepromWrite(0x07, decimalPart4);
 
-			writeToEeprom = false;
+			//writeToEeprom = false;
 			//_delay_ms(3250);
 
 			//oled.clearDisplay();
 			//oled.display();
 
-			sei();
-		}
-
-	}
-
-
+			//sei();
+		} // while(1)
 	return 1;
 }
