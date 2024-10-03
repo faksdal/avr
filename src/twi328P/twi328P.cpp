@@ -3,10 +3,11 @@
  *
  *	Created on: 31 Oct 2020
  *	Author: jole
+ *
+ *	Data sheet: https://www.sparkfun.com/datasheets/Components/SMD/ATMega328.pdf
  */
 
 #include "twi328P/twi328P.h"
-
 
 
 
@@ -49,7 +50,7 @@ void	twi328P::initBus(uint32_t _busSpeed)
 	//
 	//	Making sure the power reduction register (PRR), bit 7 is set to zero
 	//	This is the power reduction for TWI and shuts down the bus if set to one
-	//	See p.54 in the data sheet
+	//	See p.45 in the data sheet
 	//
 	//      	-------------------------------------------------------------------------
 	//	PRR 	| PRTWI | PRTIM2 | PRTIM0 |   -   | PRTIM1 |  PRSPI  | PRUSART0 | PRADC |

@@ -9,9 +9,8 @@
 #define __TWI328P_H__
 
 #ifndef F_CPU
-	#define F_CPU			16000000UL
+	#define F_CPU	16000000UL
 #endif
-
 
 
 
@@ -38,9 +37,6 @@
 #define TWI_SLA_W_TRANSMITTED_ACK_RECEIVED	0b00011000	//	0x18
 #define TWI_DATA_TRANSMITTED_ACK_RECEIVED	0b00101000	//	0x28
 
-//
-//
-//
 #define TWI_BUFFER_LENGTH		32
 
 
@@ -107,4 +103,4 @@ public:
 
 
 
-#endif /* ATMEGA328P_WATERFLOWSVERDRUP_SRC_TWI_TWI328P_H_ */
+#endif
