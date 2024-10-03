@@ -20,17 +20,15 @@
 #include <util/delay.h>
 #include <stdint.h>
 
-#define MAX_RESTARTS		30
+#define MAX_RESTARTS			30
 
-#define	WRITE_COMMAND						0x00
-#define	WRITE_DATA							0x01
-#define TRANSMIT_SUCCESS					0x02
-#define	TWI_INIT_OK							0b11000000
-#define TWI_BUS_INITIALISE_SENT				0b11100000
+#define	WRITE_COMMAND			0x00
+#define	WRITE_DATA				0x01
+#define TRANSMIT_SUCCESS		0x02
+#define	TWI_INIT_OK				0b11000000
+#define TWI_BUS_INITIALISE_SENT	0b11100000
 
-
-#define	TWI_BUS_ERROR						0b10000000
-
+#define	TWI_BUS_ERROR			0b10000000
 
 //
 //	twi status codes, to be read from the TWSR register
@@ -39,7 +37,6 @@
 #define TWI_REPEATED_START_TRANSMITTED		0b00010000	//	0x10
 #define TWI_SLA_W_TRANSMITTED_ACK_RECEIVED	0b00011000	//	0x18
 #define TWI_DATA_TRANSMITTED_ACK_RECEIVED	0b00101000	//	0x28
-
 
 //
 //

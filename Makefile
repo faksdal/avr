@@ -12,8 +12,8 @@ INCLUDEPATH	= -I . -I ./src
 
 CFLAGS		= -Wall -O$(OPTIMIZE) $(INCLUDEPATH) $(INCLUDELIBRARY)
 AVRGCC		= avr-gcc $(CFLAGS) -mmcu=$(DEVICE)
-OUTPUTFILE	= wfs
-OBJ			= obj/twi.o obj/ssd1306.o obj/main.o
+OUTPUTFILE	= avr
+OBJ			= obj/twi328P.o obj/ssd1306.o obj/main.o
 ################################################################################
 
 default: link upload clean
@@ -23,8 +23,8 @@ link: $(OBJ)
 	avr-objcopy -j .text -j .data -O ihex $(OUTPUTFILE).elf $(OUTPUTFILE).hex
 	avr-size --format=avr --mcu=$(DEVICE) $(OUTPUTFILE).elf
 
-obj/main.o: main.cpp
-	$(AVRGCC) -c main.cpp -o obj/main.o
+obj/avr.o: avr.cpp
+	$(AVRGCC) -c avr.cpp -o obj/avr.o
 
 obj/twi328P.o: src/twi328P/twi328P.cpp src/twi328P/twi328P.h
 	$(AVRGCC) -c src/twi328P/twi328P.cpp -o obj/twi328P.o
