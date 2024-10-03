@@ -5,7 +5,7 @@
 
 //
 //	This is not my work. This definition is found at several websites
-//	I do not know where it originates from
+//	I found it here: https://github.com/hollingerc/AVR/blob/master/LCD/font5x7.c
 //
 //	Jon Leithe - 2024
 //
