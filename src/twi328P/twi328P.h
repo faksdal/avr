@@ -1,8 +1,10 @@
 /*
- * twi328P.h
+ *	twi328P.h
  *
- *  Created on: 31 Oct 2020
- *      Author: jole
+ *	Created on: 31 Oct 2020
+ *	Author: jole
+ *
+ *	Data sheet: https://www.sparkfun.com/datasheets/Components/SMD/ATMega328.pdf
  */
 
 #ifndef __TWI328P_H__
