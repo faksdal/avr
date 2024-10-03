@@ -8,12 +8,13 @@ PROGRAMMER	= atmelice_isp
 BAUD		= 115200
 
 OPTIMIZE	= s
-INCLUDEPATH	= -I . -I ./src
+INCLUDEPATH	= -I. -I./src -I/home/jole/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/avr/include/
 
 CFLAGS		= -Wall -O$(OPTIMIZE) $(INCLUDEPATH) $(INCLUDELIBRARY)
 AVRGCC		= avr-gcc $(CFLAGS) -mmcu=$(DEVICE)
 OUTPUTFILE	= avr
-OBJ			= obj/twi328P.o obj/ssd1306.o obj/main.o
+#OBJ			= obj/twi328P.o obj/ssd1306.o obj/avr.o
+OBJ		= obj/twi328P.o obj/avr.o
 ################################################################################
 
 default: link upload clean
@@ -29,8 +30,8 @@ obj/avr.o: avr.cpp
 obj/twi328P.o: src/twi328P/twi328P.cpp src/twi328P/twi328P.h
 	$(AVRGCC) -c src/twi328P/twi328P.cpp -o obj/twi328P.o
 
-obj/ssd1306.o: src/ssd1306/ssd1306.cpp src/ssd1306/ssd1306.h
-	$(AVRGCC) -c src/ssd1306/ssd1306.cpp -o obj/ssd1306.o
+#obj/ssd1306.o: src/ssd1306/ssd1306.cpp src/ssd1306/ssd1306.h
+#	$(AVRGCC) -c src/ssd1306/ssd1306.cpp -o obj/ssd1306.o
 
 #obj/init.o: src/ssd1306/init.cpp src/ssd1306/ssd1306.h
 #	$(AVRGCC) -c src/ssd1306/init.cpp -o obj/init.o
