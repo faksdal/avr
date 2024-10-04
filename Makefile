@@ -42,9 +42,8 @@ BINDIR = bin
 
 
 ###############################################################################
-#	generate file list for the compiler/linker
+#	generate file lists for the compiler/linker
 SOURCES = $(wildcard *.cpp $(SRCDIR)/*.cpp)
-
 OBJFILES = $(patsubst %.cpp, $(OBJDIR)/%.o, $(notdir $(SOURCES)))
 ###############################################################################
 
@@ -82,10 +81,18 @@ $(OBJDIR)/$(TARGET).o: $(TARGET).cpp
 	$(CXX) $(C_FLAGS) $(INCLUDEPATH) -c -o $@ $<
 ###############################################################################
 
+
+
+###############################################################################
 flash:
 	@echo "Flash chip:"
 	avrdude -v -p $(DEVICE) -c $(PROGRAMMER) -P $(PORT) -b $(BAUD) -U flash:w:$(BINDIR)/$(TARGET).hex:i
+###############################################################################
 
+
+
+###############################################################################
 clean:
 	@echo "Clean-up section :-)"
 	rm $(BINDIR)/$(TARGET).* $(OBJDIR)/*
+###############################################################################

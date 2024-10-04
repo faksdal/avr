@@ -21,11 +21,18 @@
  *
  */
 
-#ifndef __SSD1306_SSD1306_H__
-#define __SSD1306_SSD1306_H__
+#ifndef __SSD1306_H__
+#define __SSD1306_H__
 
-#include <ssd1306/ssd1306CommandSet.h>
-#include "twi328P/twi328P.h"
+
+#include <avr/io.h>
+#include <util/twi.h>
+#include <util/delay.h>
+#include <stdint.h>
+
+
+#include <ssd1306CommandSet.h>
+#include "twi328P.h"
 
 
 #define MEMORY_ALLOC_ERROR	0b10101010

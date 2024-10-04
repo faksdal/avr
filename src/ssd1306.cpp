@@ -7,8 +7,8 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "ssd1306/ssd1306.h"
-#include "graphics/font5x7.h"
+#include "ssd1306.h"
+#include "font5x7.h"
 
 
 
