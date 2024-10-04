@@ -1,6 +1,8 @@
 
 #include <stdio.h>	// for data types, like uint8_t...
 
+#include "ssd1306.h"
+
 //#include <stdlib.h>
 //#include <string.h>
 
@@ -11,6 +13,5 @@
 int main(void)
 {
 	while(1){
-		//blink();
 	}
 }
