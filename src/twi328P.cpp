@@ -7,7 +7,7 @@
  *	Data sheet: https://www.sparkfun.com/datasheets/Components/SMD/ATMega328.pdf
  */
 
-#include "twi328P/twi328P.h"
+#include "twi328P.h"
 
 
 

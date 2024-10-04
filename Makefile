@@ -1,6 +1,22 @@
-################################################################################
 #
-# definitions and flags
+#
+#	Makefile
+#	
+#	target: prerequisites prerequisites ...
+#		<tab>command
+#		<tab>command
+#
+#	$@	=	target name
+#	$?	=	all prerequisites newer than target
+#	$<	=	first prerequisites
+#	$^	=	all prerequisites
+#
+#	The @ in front of the echo command, prevents the actual command from being printed to screen
+#
+#	$(patsubst PATTERN,REPLACEMENT,TEXT)
+###############################################################################
+#
+#	Misc. defs
 #
 PORT		= usb-0000
 DEVICE		= atmega328p
@@ -8,58 +24,68 @@ CPU_FREQ	= 16000000UL
 PROGRAMMER	= atmelice_isp
 BAUD		= 115200
 
-OPTIMIZE	= s
-INCLUDE		= -I. -I./src -I/home/jole/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/avr/include/
+#	define target name
+TARGET = oled
 
-CFLAGS		= -Wall -O$(OPTIMIZE)
-COMPILE		= avr-g++ $(CFLAGS) -DF_CPU=$(CPU_FREQ)
-OUTPUTFILE	= blink
+#	define compiler and various options for this
+CXX		= avr-g++
+INCLUDEPATH	= -Iinc -I. -I/home/jole/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/avr/include/
+C_FLAGS		= -g -Wall -Os -DF_CPU=$(CPU_FREQ) -mmcu=$(DEVICE)
 
-#OBJ			= obj/twi328P.o obj/ssd1306.o obj/avr.o
-OBJFILES	= obj/blink.o obj/main.o
-
-OBJDIR		= obj
-BINDIR		= bin
-################################################################################
-
-default: link upload
-
-link: $(OBJFILES)
-	$(COMPILE) -mmcu=$(DEVICE) $(OBJFILES) -o $(BINDIR)/$(OUTPUTFILE).elf
-	avr-objcopy -j .text -j .data -O ihex $(BINDIR)/$(OUTPUTFILE).elf $(BINDIR)/$(OUTPUTFILE).hex
-	avr-size --format=avr --mcu=$(DEVICE) $(BINDIR)/$(OUTPUTFILE).elf
-
-obj/blink.o: blink.cpp
-	$(COMPILE) $(INCLUDE) -mmcu=$(DEVICE) -c -o $(OBJDIR)/blink.o blink.cpp
-
-obj/main.o: main.cpp
-	$(COMPILE) $(INCLUDE) -mmcu=$(DEVICE) -c -o $(OBJDIR)/main.o main.cpp
+#	source- and destination files directories
+INCDIR = inc
+SRCDIR = src
+OBJDIR = obj
+BINDIR = bin
+###############################################################################
 
 
-#obj/twi328P.o: src/twi328P/twi328P.cpp src/twi328P/twi328P.h
-#	$(AVRGCC) -c src/twi328P/twi328P.cpp -o obj/twi328P.o
 
-#obj/ssd1306.o: src/ssd1306/ssd1306.cpp src/ssd1306/ssd1306.h
-#	$(AVRGCC) -c src/ssd1306/ssd1306.cpp -o obj/ssd1306.o
+###############################################################################
+#	generate file list for the compiler/linker
+SOURCES = $(wildcard *.cpp $(SRCDIR)/*.cpp)
 
-#obj/init.o: src/ssd1306/init.cpp src/ssd1306/ssd1306.h
-#	$(AVRGCC) -c src/ssd1306/init.cpp -o obj/init.o
-	
+OBJFILES = $(patsubst %.cpp, $(OBJDIR)/%.o, $(notdir $(SOURCES)))
+###############################################################################
 
 
-#obj/main.o: main.cpp
-#	@echo "obj/main.o"
-#	$(AVRGCC) -c main.cpp -o obj/main.o
 
-upload:
-	avrdude -v -p $(DEVICE) -c $(PROGRAMMER) -P $(PORT) -b $(BAUD) -U flash:w:$(BINDIR)/$(OUTPUTFILE).hex:i
-	#avrdude -v -p $(DEVICE) -c $(PROGRAMMER) -b $(BAUD) -U flash:w:$(BINDIR)/$(OUTPUTFILE).hex:i
-	
+###############################################################################
+#	Rule to link all object files
+#link: $(OBJFILES)
+$(TARGET): $(OBJFILES)
+	@echo "Link section: "$(OBJFILES)
+	$(CXX) -mmcu=$(DEVICE) $(OBJFILES) -o $(BINDIR)/$(TARGET).elf
+	avr-objcopy -j .text -j .data -O ihex $(BINDIR)/$(TARGET).elf $(BINDIR)/$(TARGET).hex
+	avr-size --format=avr --mcu=$(DEVICE) $(BINDIR)/$(TARGET).elf
+	#$(CXX) $(C_FLAGS) -o $(BINDIR)/$(TARGET) $(OBJFILES)
+###############################################################################
+
+
+
+###############################################################################
+#	Rule to make the file containing the main()-function.
+#	This file resides in project root
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
+	@echo "Build file with main()-function:"
+	$(CXX) $(C_FLAGS) $(INCLUDEPATH) -c -o $@ $^
+###############################################################################
+
+
+
+###############################################################################
+#	Rule to make source files
+#	This file resides in ./src
+$(OBJDIR)/$(TARGET).o: $(TARGET).cpp
+#$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
+	@echo "Build all the source files"
+	$(CXX) $(C_FLAGS) $(INCLUDEPATH) -c -o $@ $<
+###############################################################################
+
+flash:
+	@echo "Flash chip:"
+	avrdude -v -p $(DEVICE) -c $(PROGRAMMER) -P $(PORT) -b $(BAUD) -U flash:w:$(BINDIR)/$(TARGET).hex:i
+
 clean:
-	rm obj/*.o $(BINDIR)/$(OUTPUTFILE).elf $(BINDIR)/$(OUTPUTFILE).hex
-################################################################################	
-#
-# target: dependencies
-#	action
-
-
+	@echo "Clean-up section :-)"
+	rm $(BINDIR)/$(TARGET).* $(OBJDIR)/*
