@@ -81,7 +81,10 @@ int main(void)
 	sprintf((char*)text, "1: by Jon Leithe - 2024");
 	oled.print(0, 1, text, strlen((char*)text));
 	sprintf((char*)text, "2: Barebone C++ on ardu");
-		oled.print(0, 2, text, strlen((char*)text));
+	oled.print(0, 2, text, strlen((char*)text));
+	sprintf((char*)text, "3: Waterflow x l/m");
+	oled.print(0, 3, text, strlen((char*)text));
+
 	oled.display();
 
 	while(1){

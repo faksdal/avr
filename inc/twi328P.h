@@ -11,7 +11,7 @@
 #define __TWI328P_H__
 
 #ifndef F_CPU
-	#define F_CPU	16000000UL
+	#define F_CPU	8000000UL
 #endif
 
 
