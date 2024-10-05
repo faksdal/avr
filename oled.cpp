@@ -1,10 +1,10 @@
 
-#include <stdio.h>	// for data types, like uint8_t...
+#include <stdio.h>
+#include <string.h>
+//#include <stdlib.h>
+
 
 #include "ssd1306.h"
-
-#include <stdlib.h>
-#include <string.h>
 
 
 
@@ -16,7 +16,7 @@ int main(void)
 	uint8_t		displayTwiAddress	= 0x3c;
 	uint8_t		width				= 128;
 	uint8_t		height				= 64;
-	uint8_t 	contrast			= 16;		// 0-255
+	uint8_t 	contrast			= 48;		// 0-255
 
 
   	//	Enable output to LED port
