@@ -6,7 +6,7 @@
  *
  */
 
-#include "yfs401/yfs401.h"
+#include "yfs401.h"
 
 
 

@@ -1,4 +1,4 @@
-#include "twi328P/twi328P.h"
+#include "twi328P.h"
 //
 //	Function:		twi328P::checkStatusRegister()
 //
