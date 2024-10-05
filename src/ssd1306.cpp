@@ -64,7 +64,7 @@ volatile void ssd1306::displayOn(void)
 //	return value:
 //
 //
-uint8_t ssd1306::initDisplay(uint8_t _slaveAddress, uint8_t _displayWidth, uint8_t _displayHeight)
+uint8_t ssd1306::initDisplay(uint8_t _slaveAddress, uint8_t _displayWidth, uint8_t _displayHeight, uint8_t _contrast)
 {
 
 	bufferSize = (_displayWidth * (_displayHeight / 8));
@@ -147,7 +147,8 @@ uint8_t ssd1306::initDisplay(uint8_t _slaveAddress, uint8_t _displayWidth, uint8
 	}
 
 	{	// Set contrast control, p.30
-		uint8_t cmdList[] = {CMD_SET_CONTRAST_CONTROL, SET_CONTRAST_RESET};
+		uint8_t cmdList[] = {CMD_SET_CONTRAST_CONTROL, _contrast};
+		//uint8_t cmdList[] = {CMD_SET_CONTRAST_CONTROL, SET_CONTRAST_RESET};
 		twi.writeCommandList(slaveAddress, sizeof(cmdList), cmdList);
 	}
 

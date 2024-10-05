@@ -52,7 +52,7 @@ public:
 
 	ssd1306();
 
-	uint8_t	initDisplay(uint8_t _slaveAddress, uint8_t _displayWidth, uint8_t _displayHeight);
+	uint8_t	initDisplay(uint8_t _slaveAddress, uint8_t _displayWidth, uint8_t _displayHeight, uint8_t _contrast);
 
 
 

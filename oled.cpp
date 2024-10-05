@@ -16,6 +16,7 @@ int main(void)
 	uint8_t		displayTwiAddress	= 0x3c;
 	uint8_t		width				= 128;
 	uint8_t		height				= 64;
+	uint8_t 	contrast			= 16;		// 0-255
 
 
   	//	Enable output to LED port
@@ -29,7 +30,7 @@ int main(void)
 
 
 	// initialise the display, and check the feedback...
-	switch(oled.initDisplay(displayTwiAddress, width, height)){
+	switch(oled.initDisplay(displayTwiAddress, width, height, contrast)){
 		case 1:						oled.twi.blinkLED(0b00100000, 2, 1);
 									lightUp = 0;
 									break;
