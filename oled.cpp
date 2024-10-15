@@ -12,7 +12,7 @@ int main(void)
 {
 	ssd1306		oled;
 
-	uint8_t		lightUp				= 1;		// we assume we're gonna be ok
+	uint8_t		lightUp				= 1;		// assume we're gonna be ok
 	uint8_t		displayTwiAddress	= 0x3c;
 	uint8_t		width				= 128;
 	uint8_t		height				= 64;
