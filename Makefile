@@ -31,7 +31,7 @@ TARGET = oled
 CXX		= avr-g++
 INCLUDEPATH	= -Iinc -I. -I/home/jole/mnt/projects/avr-lib/inc -I/home/jole/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/avr/include/
 LIBPATH		= -L/home/jole/mnt/projects/avr-lib/lib
-LIBS		= -lssd1306-lib.a
+LIBS		= -lssd1306-lib -ltwi328P-lib
 C_FLAGS		= -g -Wall -Os -DF_CPU=$(CPU_FREQ) -mmcu=$(DEVICE) -v
 
 #	source- and destination files directories
@@ -56,7 +56,7 @@ OBJFILES = $(patsubst %.cpp, $(OBJDIR)/%.o, $(notdir $(SOURCES)))
 #link: $(OBJFILES)
 $(TARGET): $(OBJFILES)
 	@echo "Link section: "$(OBJFILES)
-	$(CXX) -mmcu=$(DEVICE) $(OBJFILES) -o $(BINDIR)/$(TARGET).elf
+	$(CXX) -mmcu=$(DEVICE) $(OBJFILES) $(LIBPATH) $(LIBS) -o $(BINDIR)/$(TARGET).elf
 	avr-objcopy -j .text -j .data -O ihex $(BINDIR)/$(TARGET).elf $(BINDIR)/$(TARGET).hex
 	avr-size --format=avr --mcu=$(DEVICE) $(BINDIR)/$(TARGET).elf
 	#$(CXX) $(C_FLAGS) -o $(BINDIR)/$(TARGET) $(OBJFILES)
