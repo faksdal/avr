@@ -29,8 +29,10 @@ TARGET = oled
 
 #	define compiler and various options for this
 CXX		= avr-g++
-INCLUDEPATH	= -Iinc -I. -I/home/jole/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/avr/include/
-C_FLAGS		= -g -Wall -Os -DF_CPU=$(CPU_FREQ) -mmcu=$(DEVICE)
+INCLUDEPATH	= -Iinc -I. -I/home/jole/mnt/projects/avr-lib/inc -I/home/jole/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/avr/include/
+LIBPATH		= -L/home/jole/mnt/projects/avr-lib/lib
+LIBS		= -lssd1306-lib.a
+C_FLAGS		= -g -Wall -Os -DF_CPU=$(CPU_FREQ) -mmcu=$(DEVICE) -v
 
 #	source- and destination files directories
 INCDIR = inc
