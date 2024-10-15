@@ -23,6 +23,7 @@ DEVICE		= atmega328p
 CPU_FREQ	= 16000000UL
 PROGRAMMER	= atmelice_isp
 BAUD		= 115200
+#BAUD		= 9600
 
 #	define target name
 TARGET = oled
